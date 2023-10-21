@@ -28,7 +28,7 @@ const StockCard: React.FC<StockCardProps> = ({ data }) => {
           {isGainer && "+"}
           {data.change_amount}
           <Image
-            src={isGainer ? "up_arrow.svg" : "down_arrow.svg"}
+            src={isGainer ? "/icons/up_arrow.svg" : "/icons/down_arrow.svg"}
             height={15}
             width={15}
             alt="arrow up"
