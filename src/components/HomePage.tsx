@@ -6,7 +6,7 @@ import StockCard from "./StockCard";
 const HomePage = () => {
   const [current, setCurrent] = useState("gainer");
   return (
-    <div className="mx-40 mt-5">
+    <div className="mx-10 lg:mx-20 xl:mx-40 mt-5">
       <div className="flex gap-6">
         <button
           onClick={() => setCurrent("gainer")}
@@ -25,7 +25,7 @@ const HomePage = () => {
           Top Losers
         </button>
       </div>
-      <div className="grid grid-cols-4 gap-4  mt-10">
+      <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4  mt-10">
         <StockCard />
         <StockCard />
         <StockCard />
