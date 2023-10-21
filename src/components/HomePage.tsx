@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import StockCard from "./StockCard";
 import axios from "axios";
+
 const HomePage = () => {
   const [current, setCurrent] = useState("gainer");
   const [topGainers, setTopGainers] = useState([]);
@@ -18,7 +19,6 @@ const HomePage = () => {
         const res = await axios.get(
           "https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey=demo"
         );
-        console.log(res.data);
         setTopGainers(res.data.top_gainers);
         setTopLosers(res.data.top_losers);
         setLoading(false);
