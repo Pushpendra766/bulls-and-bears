@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import StockHeader from "@/components/StockPage/StockHeader";
 import StockDetails from "@/components/StockPage/StockDetails";
+import StockGraph from "@/components/StockPage/StockGraph";
 import axios from "axios";
 
 type StockData = {
@@ -56,7 +57,6 @@ export default function ProductPage({ params: { ticker } }: ProductPageProps) {
         const res = await axios.get(
           `https://www.alphavantage.co/query?function=OVERVIEW&symbol=${ticker}&apikey=${process.env.API_KEY}`
         );
-        console.log(res.data);
         setStockData(res.data);
         setLoading(false);
       } catch (error) {
@@ -77,9 +77,7 @@ export default function ProductPage({ params: { ticker } }: ProductPageProps) {
           ) : (
             <p>Data Not Found</p>
           )}
-          <div className="flex border-2 p-10 rounded-md bg-[#ffff91]">
-            graph
-          </div>
+          <StockGraph />
           <StockDetails company={stockData} />
         </>
       )}

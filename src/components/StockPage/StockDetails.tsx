@@ -68,18 +68,32 @@ const StockDetails: React.FC<StockDetailsProps> = ({ company }) => {
   //   DividendDate: "2023-09-09",
   //   ExDividendDate: "2023-08-09",
   // };
+
   const stats = [
     {
       name: "Market Cap",
       value:
-        "$" +
-        (Math.abs(Number(company.MarketCapitalization)) / 1.0e9).toFixed(2) +
-        "B",
+        company.MarketCapitalization === "None"
+          ? "-"
+          : "$" +
+            (Math.abs(Number(company.MarketCapitalization)) / 1.0e9).toFixed(
+              2
+            ) +
+            "B",
     },
-    { name: "P/E Ratio", value: company.PERatio },
-    { name: "Beta", value: company.Beta },
-    { name: "Dividend Yield", value: company.DividendYield + "%" },
-    { name: "Profit Margin", value: company.ProfitMargin },
+    {
+      name: "P/E Ratio",
+      value: company.PERatio === "None" ? "-" : company.PERatio,
+    },
+    { name: "Beta", value: company.Beta === "None" ? "-" : company.Beta },
+    {
+      name: "Dividend Yield",
+      value: company.DividendYield === "0" ? "-" : company.DividendYield + "%",
+    },
+    {
+      name: "Profit Margin",
+      value: company.ProfitMargin === "0" ? "-" : company.ProfitMargin,
+    },
   ];
 
   return (
@@ -88,7 +102,11 @@ const StockDetails: React.FC<StockDetailsProps> = ({ company }) => {
         <h2 className="font-semibold">About {company.Name}</h2>
       </div>
       <div className="flex flex-col gap-16 p-6 text-sm md:text-base">
-        <p>{company.Description}</p>
+        <p>
+          {company.Description === "None"
+            ? "Not Provided"
+            : company.Description}
+        </p>
         <div className="flex flex-col md:flex-row gap-2 md:gap-8">
           <p className="bg-[#E1BEE7] py-2 px-4 rounded-full">
             Sector: {company.Sector}
