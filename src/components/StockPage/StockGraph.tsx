@@ -39,64 +39,63 @@ function StockGraph() {
         data: timeSeriesArray.map((data) => data.open),
         borderColor: "red",
         borderWidth: 1,
-        pointBorderColor: "red",
-        pointBorderWidth: 1,
+        pointRadius:0,
         tension: 0,
       },
     ],
   };
 
-  const options = {
-    plugins: {
-      legend: {
-        display: true,
-      },
-    },
-    responsive: true,
-    scales: {
-      y: {
-        ticks: {
-          font: {
-            size: 17,
-            weight: "bold",
-          },
-        },
-        title: {
-          display: true,
-          text: "Sales",
-          padding: {
-            bottom: 10,
-          },
-          font: {
-            size: 30,
-            style: "italic",
-            family: "Arial",
-          },
-        },
-        min: 50,
-      },
-      x: {
-        ticks: {
-          font: {
-            size: 17,
-            weight: "bold",
-          },
-        },
-        title: {
-          display: true,
-          text: "Month",
-          padding: {
-            top: 10,
-          },
-          font: {
-            size: 30,
-            style: "italic",
-            family: "Arial",
-          },
-        },
-      },
-    },
-  };
+  // const options = {
+  //   plugins: {
+  //     legend: {
+  //       display: true,
+  //     },
+  //   },
+  //   responsive: true,
+  //   scales: {
+  //     y: {
+  //       ticks: {
+  //         font: {
+  //           size: 17,
+  //           weight: "bold",
+  //         },
+  //       },
+  //       title: {
+  //         display: true,
+  //         text: "Sales",
+  //         padding: {
+  //           bottom: 10,
+  //         },
+  //         font: {
+  //           size: 30,
+  //           style: "italic",
+  //           family: "Arial",
+  //         },
+  //       },
+  //       min: 50,
+  //     },
+  //     x: {
+  //       ticks: {
+  //         font: {
+  //           size: 17,
+  //           weight: "bold",
+  //         },
+  //       },
+  //       title: {
+  //         display: true,
+  //         text: "Month",
+  //         padding: {
+  //           top: 10,
+  //         },
+  //         font: {
+  //           size: 30,
+  //           style: "italic",
+  //           family: "Arial",
+  //         },
+  //       },
+  //     },
+  //   },
+  // };
 
   return (
     <div className="border-2 rounded-md">
