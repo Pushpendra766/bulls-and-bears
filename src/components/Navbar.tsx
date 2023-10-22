@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import SearchBar from "./SearchBar";
 
 export default function Navbar() {
   return (
@@ -21,14 +22,7 @@ export default function Navbar() {
         </div>
       </Link>
       <div></div>
-      <div className="flex gap-2 border w-full px-4 rounded-full">
-        <Image src="/icons/search.svg" width={15} height={15} alt="search" />
-        <input
-          type="text"
-          placeholder="Search"
-          className="w-full focus:outline-none"
-        />
-      </div>
+      <SearchBar />
       <button className="bg-[#048000] px-4 font-semibold text-white rounded-full">
         Th
       </button>
