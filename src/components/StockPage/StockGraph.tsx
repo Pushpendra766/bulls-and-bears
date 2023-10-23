@@ -110,7 +110,6 @@ function StockGraph() {
     setIsGainer(
       Number(yAxisData[yAxisData.length - 1]) - Number(yAxisData[0]) > 0
     );
-    console.log(isGainer);
   };
 
   const data = {
@@ -136,13 +135,13 @@ function StockGraph() {
         <Line data={data}></Line>
       </div>
       <div className="flex justify-center py-4">
-        <div className="flex gap-4 border-2 px-6 rounded-full py-2">
+        <div className="flex gap-2 md:gap-4 border-2 px-2 md:px-6 rounded-full py-2">
           {durationBtns.map((button, idx) => {
             return (
               <button
                 className={`${
                   idx === activeDurationBtn && "bg-blue-300"
-                } px-2 rounded-full`}
+                } px-2 rounded-full text-sm md:text-base`}
                 key={idx}
                 onClick={() => handleDurationChange(idx)}
               >
