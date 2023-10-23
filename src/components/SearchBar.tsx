@@ -30,12 +30,11 @@ const SearchBar = () => {
         setLoading(true);
         setReqExc(false);
         const res = await axios.get(
-          `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${e.target.value}&apikey=${process.env.API_KEY}`,
+          `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${e.target.value}&apikey=${process.env.NEXT_PUBLIC_API_KEY_C}`,
           {
             cancelToken: newCancelToken.token,
           }
         );
-        console.log(res.data);
         if (
           Object.keys(res.data)[0] === "Note" ||
           Object.keys(res.data)[0] === "Information"

@@ -12,9 +12,7 @@ const HomePage = () => {
     setTopGainersZustand,
     setTopLosersZustand,
   } = useStockStore.getState();
-
-  const url =
-    "https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey=demo";
+  const API_ENDPOINT = `https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey=${process.env.NEXT_PUBLIC_API_KEY_D}`;
   const [current, setCurrent] = useState("gainer");
   const [topGainers, setTopGainers] = useState([]);
   const [topLosers, setTopLosers] = useState([]);
@@ -22,9 +20,7 @@ const HomePage = () => {
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    console.table(topGainersZustand);
     if (topGainersZustand.length !== 0) {
-      console.log("Getting data from zustand");
       setTopGainers(topGainersZustand);
       setTopLosers(topLosersZustand);
       return;
@@ -34,9 +30,10 @@ const HomePage = () => {
       try {
         setLoading(true);
         setError(false);
-
-        const res = await axios.get(url);
-
+        console.log("APi endpoint : ", API_ENDPOINT);
+        console.log("APi key : ", process.env.NEXT_PUBLIC_API_KEY_D);
+        const res = await axios.get(API_ENDPOINT);
+        console.log(res.data);
         console.log("Getting data from API");
         setTopGainers(res.data.top_gainers);
         setTopLosers(res.data.top_losers);
@@ -77,10 +74,10 @@ const HomePage = () => {
         {loading
           ? "Loading..."
           : current === "gainer"
-          ? topGainers.map((stock, idx) => {
+          ? topGainers && topGainers.map((stock, idx) => {
               return <StockCard data={stock} key={idx} />;
             })
-          : topLosers.map((stock, idx) => {
+          : topLosers && topLosers.map((stock, idx) => {
               return <StockCard data={stock} key={idx} />;
             })}
       </div>

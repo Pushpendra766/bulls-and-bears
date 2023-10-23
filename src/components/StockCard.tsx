@@ -19,7 +19,7 @@ const StockCard: React.FC<StockCardProps> = ({ data }) => {
     >
       <div className="flex gap-8 border rounded-md p-4 cursor-pointer">
         <div
-          className={`flex justify-center items-center px-7 rounded-full bg-gradient-to-r ${
+          className={`flex w-18 h-18 justify-center items-center px-7 rounded-full bg-gradient-to-r ${
             isGainer ? "from-[#90EE91]" : "from-[#F07470]"
           } ${isGainer ? "to-[#BFF4BE]" : "to-[#F6BDC0]"}`}
         >
