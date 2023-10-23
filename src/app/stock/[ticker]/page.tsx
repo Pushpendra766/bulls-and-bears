@@ -6,6 +6,7 @@ import StockGraph from "@/components/StockPage/StockGraph";
 import axios from "axios";
 import useBasicStockData from "@/store/basicStockDataStore";
 import useDetailedStockData from "@/store/detailedStockData";
+import { dummyBasicData, dummyDetailedData } from "@/data/demo-stock-data";
 
 type BasicStockData = {
   "01. symbol": string;
@@ -95,7 +96,9 @@ export default function ProductPage({ params: { ticker } }: ProductPageProps) {
           Object.keys(res.data)[0] === "Information"
         ) {
           setBasicReqExc(true);
+          setBasicStockData(dummyBasicData["Global Quote"]);
           console.log("Req exceeded");
+          setBasicReqExc(false);
         } else {
           addBasicDataZustand(res.data["Global Quote"]);
           setBasicStockData(res.data["Global Quote"]);
@@ -131,7 +134,9 @@ export default function ProductPage({ params: { ticker } }: ProductPageProps) {
           Object.keys(res.data)[0] === "Information"
         ) {
           setDetailedReqExc(true);
+          setDetailedStockData(dummyDetailedData);
           console.log("Req exceeded");
+          setDetailedReqExc(false);
         } else {
           addDetailedDataZustand(res.data);
           setDetailedStockData(res.data);
