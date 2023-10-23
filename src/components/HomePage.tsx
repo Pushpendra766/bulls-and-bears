@@ -3,8 +3,18 @@
 import { useState, useEffect } from "react";
 import StockCard from "./StockCard";
 import axios from "axios";
+import useStockStore from "@/store/stockStore";
 
 const HomePage = () => {
+  const {
+    topGainersZustand,
+    topLosersZustand,
+    setTopGainersZustand,
+    setTopLosersZustand,
+  } = useStockStore.getState();
+
+  const url =
+    "https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey=demo";
   const [current, setCurrent] = useState("gainer");
   const [topGainers, setTopGainers] = useState([]);
   const [topLosers, setTopLosers] = useState([]);
@@ -12,15 +22,28 @@ const HomePage = () => {
   const [error, setError] = useState(false);
 
   useEffect(() => {
+    console.table(topGainersZustand);
+    if (topGainersZustand.length !== 0) {
+      console.log("Getting data from zustand");
+      setTopGainers(topGainersZustand);
+      setTopLosers(topLosersZustand);
+      return;
+    }
+
     (async () => {
       try {
         setLoading(true);
         setError(false);
-        const res = await axios.get(
-          "https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey=demo"
-        );
+
+        const res = await axios.get(url);
+
+        console.log("Getting data from API");
         setTopGainers(res.data.top_gainers);
         setTopLosers(res.data.top_losers);
+
+        setTopGainersZustand(res.data.top_gainers);
+        setTopLosersZustand(res.data.top_losers);
+
         setLoading(false);
       } catch (error) {
         setError(true);

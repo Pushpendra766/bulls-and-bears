@@ -4,6 +4,7 @@ import StockHeader from "@/components/StockPage/StockHeader";
 import StockDetails from "@/components/StockPage/StockDetails";
 import StockGraph from "@/components/StockPage/StockGraph";
 import axios from "axios";
+import useTickerDataStore from "@/store/tickerDataStore";
 
 type StockData = {
   Symbol: string;
@@ -29,6 +30,8 @@ interface ProductPageProps {
 }
 
 export default function ProductPage({ params: { ticker } }: ProductPageProps) {
+  const { tickerDataZustand, addTickerZustand } = useTickerDataStore.getState();
+
   const [stockData, setStockData] = useState<StockData>({
     Symbol: "",
     AssetType: "",
@@ -49,7 +52,15 @@ export default function ProductPage({ params: { ticker } }: ProductPageProps) {
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    setLoading(true);
+    const tickerZustand = tickerDataZustand.find(
+      (item: any) => item.Symbol === ticker
+    );
+
+    if (tickerZustand) {
+      setStockData(tickerZustand);
+      return;
+    }
+
     (async () => {
       try {
         setLoading(true);
@@ -57,7 +68,17 @@ export default function ProductPage({ params: { ticker } }: ProductPageProps) {
         const res = await axios.get(
           `https://www.alphavantage.co/query?function=OVERVIEW&symbol=${ticker}&apikey=${process.env.API_KEY}`
         );
-        setStockData(res.data);
+
+        if (
+          Object.keys(res.data)[0] === "Note" ||
+          Object.keys(res.data)[0] === "Information"
+        ) {
+          console.log("Req exceeded");
+        } else {
+          addTickerZustand(res.data);
+          setStockData(res.data);
+        }
+
         setLoading(false);
       } catch (error) {
         setError(true);
