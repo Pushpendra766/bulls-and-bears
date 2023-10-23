@@ -16,45 +16,45 @@ const SearchBar = () => {
 
   const handleChange = (e: any) => {
     setSearchTerm(e.target.value);
-    if (e.target.value !== "") {
-      if (cancelToken) {
-        cancelToken.cancel("Request cancelled due to new request.");
-      }
+    if (!e.target.value) return;
 
-      const newCancelToken = axios.CancelToken.source();
-      setCancelToken(newCancelToken);
-
-      (async () => {
-        try {
-          setLoading(true);
-          setReqExc(false);
-          const res = await axios.get(
-            `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${e.target.value}&apikey=${process.env.API_KEY}`,
-            {
-              cancelToken: newCancelToken.token,
-            }
-          );
-          console.log(res.data);
-          if (
-            Object.keys(res.data)[0] === "Note" ||
-            Object.keys(res.data)[0] === "Information"
-          ) {
-            setReqExc(true);
-            console.log("Req exceeded");
-          } else {
-            setSearchResult(res.data.bestMatches);
-          }
-
-          setLoading(false);
-        } catch (error) {
-          if (axios.isCancel(error)) {
-            console.log("Request cancelled", error.message);
-            return;
-          }
-          setLoading(false);
-        }
-      })();
+    if (cancelToken) {
+      cancelToken.cancel("Request cancelled due to new request.");
     }
+
+    const newCancelToken = axios.CancelToken.source();
+    setCancelToken(newCancelToken);
+
+    (async () => {
+      try {
+        setLoading(true);
+        setReqExc(false);
+        const res = await axios.get(
+          `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${e.target.value}&apikey=${process.env.API_KEY}`,
+          {
+            cancelToken: newCancelToken.token,
+          }
+        );
+        console.log(res.data);
+        if (
+          Object.keys(res.data)[0] === "Note" ||
+          Object.keys(res.data)[0] === "Information"
+        ) {
+          setReqExc(true);
+          console.log("Req exceeded");
+        } else {
+          setSearchResult(res.data.bestMatches);
+        }
+
+        setLoading(false);
+      } catch (error) {
+        if (axios.isCancel(error)) {
+          console.log("Request cancelled", error.message);
+          return;
+        }
+        setLoading(false);
+      }
+    })();
   };
 
   return (
