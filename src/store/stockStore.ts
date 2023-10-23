@@ -7,13 +7,6 @@ type Stock = {
   change_amount: string;
 };
 
-type StockStore = {
-  topGainers: Stock[];
-  topLosers: Stock[];
-  setTopGainers: (data: Stock[]) => void;
-  setTopLosers: (data: Stock[]) => void;
-};
-
 const stockStore = (set: any) => ({
   topGainersZustand: [],
   topLosersZustand: [],
