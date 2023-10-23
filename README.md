@@ -9,6 +9,12 @@ You can see video demo here - [Demo Video](https://youtu.be/7SDjIXXbKgU)
 
 You can see live preview here - [Bulls and Bears](https://bulls-and-bears.vercel.app/)
 
+## FlowChart
+
+![image](https://github.com/Pushpendra766/bulls-and-bears/assets/56391001/b2ba127c-63c5-41bf-a5ef-8aea97bba833)
+
+
+
 ## Getting Started 
 
 To get started with this project, clone the repository and install the dependencies:
