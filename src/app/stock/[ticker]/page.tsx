@@ -157,7 +157,7 @@ export default function ProductPage({ params: { ticker } }: ProductPageProps) {
   }, []);
 
   return (
-    <div className="flex flex-col gap-6 md:gap-10 mx-4 mx-10 md:mx-16 lg:mx-20 xl:mx-48 m-10">
+    <div className="flex flex-col gap-6 md:gap-10 px-2 md:px-16 lg:px-20 xl:px-48 py-10 dark:bg-slate-900">
       {loading ? (
         <p>Loading...</p>
       ) : (

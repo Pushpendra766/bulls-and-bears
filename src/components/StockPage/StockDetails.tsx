@@ -64,9 +64,16 @@ const StockDetails: React.FC<StockDetailsProps> = ({
     },
   ];
 
+  if (
+    Object.keys(basicStockData).length === 0 ||
+    Object.keys(detailedStockData).length === 0
+  ) {
+    return <p>Data not found, try again</p>;
+  }
+
   return (
-    <div className="border-2 rounded-md">
-      <div className="border-b-2 w-full p-4 ">
+    <div className="border-2 rounded-md dark:border-slate-600">
+      <div className="border-b-2 w-full p-4 dark:border-slate-600">
         <h2 className="font-semibold">About {detailedStockData.Name}</h2>
       </div>
       <div className="flex flex-col gap-16 p-6 text-sm md:text-base">
@@ -76,10 +83,10 @@ const StockDetails: React.FC<StockDetailsProps> = ({
             : detailedStockData.Description}
         </p>
         <div className="flex flex-col md:flex-row gap-2 md:gap-8">
-          <p className="bg-[#E1BEE7] py-2 px-4 rounded-full">
+          <p className="bg-[#E1BEE7] py-2 px-4 rounded-full dark:bg-pink-900">
             Sector: {detailedStockData.Sector}
           </p>
-          <p className="bg-[#81D4FA] py-2 px-4 rounded-full">
+          <p className="bg-[#81D4FA] py-2 px-4 rounded-full dark:bg-blue-900">
             Industry: {detailedStockData.Industry}
           </p>
         </div>

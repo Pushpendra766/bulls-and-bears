@@ -23,7 +23,12 @@ const StockHeader: React.FC<StockHeaderProps> = ({
   detailedStockData,
 }) => {
   const isGainer = Number(basicStockData["09. change"]) > 0;
-
+  if (
+    Object.keys(basicStockData).length === 0 ||
+    Object.keys(detailedStockData).length === 0
+  ) {
+    return <p>Data not found, try again</p>;
+  }
   return (
     <div className="flex justify-between">
       <div className="flex gap-3 md:gap-8">
