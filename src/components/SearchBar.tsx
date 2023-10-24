@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 import Link from "next/link";
 import axios, { CancelTokenSource } from "axios";
+import { AiOutlineSearch } from "react-icons/ai";
 
 const SearchBar = () => {
   const [searchResult, setSearchResult] = useState([]);
@@ -30,12 +31,11 @@ const SearchBar = () => {
         setLoading(true);
         setReqExc(false);
         const res = await axios.get(
-          `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${e.target.value}&apikey=${process.env.API_KEY}`,
+          `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${e.target.value}&apikey=${process.env.NEXT_PUBLIC_API_KEY_C}`,
           {
             cancelToken: newCancelToken.token,
           }
         );
-        console.log(res.data);
         if (
           Object.keys(res.data)[0] === "Note" ||
           Object.keys(res.data)[0] === "Information"
@@ -58,13 +58,13 @@ const SearchBar = () => {
   };
 
   return (
-    <div className="border w-full px-4 rounded-full">
+    <div className="border w-full px-4 rounded-full dark:bg-slate-800 dark:border-slate-600">
       <div className="flex gap-2 pt-2">
-        <Image src="/icons/search.svg" width={15} height={15} alt="search" />
+        <AiOutlineSearch size={17} className="mt-1" />
         <input
           type="text"
           placeholder="Search"
-          className="w-full focus:outline-none"
+          className="w-full focus:outline-none dark:bg-slate-800"
           value={searchTerm}
           onChange={handleChange}
         />
@@ -72,14 +72,14 @@ const SearchBar = () => {
       <div
         className={`${
           searchTerm.length === 0 && "hidden"
-        } absolute flex flex-col border-t-0 bg-[#fff] border-2 py-2`}
+        } absolute flex flex-col border-t-0 bg-[#fff] dark:bg-slate-800 dark:border-slate-600 border py-2`}
       >
         {searchResult.length !== 0 ? (
           searchResult.map((result: any, idx) => {
             return (
               <Link
                 href={`/stock/${result["1. symbol"]}`}
-                className="text-left hover:bg-gray-200 px-5 py-3"
+                className="text-left hover:bg-gray-200 px-5 py-3 dark:hover:bg-slate-700"
                 onClick={() => setSearchTerm("")}
                 key={idx}
               >
@@ -91,7 +91,7 @@ const SearchBar = () => {
                     </p>
                   </div>
                   <div className="text-right text-sm">
-                    <p className="border border-blue-500 bg-blue-100 rounded-full px-2">
+                    <p className="border border-blue-500 bg-blue-100 rounded-full px-2 dark:text-slate-900">
                       {result["3. type"]}
                     </p>
                   </div>
