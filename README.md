@@ -1,13 +1,36 @@
 # Bulls and Bears
-Bulls and Bears is a web application for stocks/etfs broking. It is built using NextJS and TypeScript. 
+Bulls and Bears is a user-friendly web application designed for seamless stock and ETFs trading. Leveraging the power of NextJS and TypeScript, it offers a smooth and efficient broking experience. With its intuitive interface, users can easily access market data, make informed investment decisions, and manage their portfolios with confidence.  
 
 ## Demo
 
-You can see video demo here - [Demo Video](https://youtu.be/7SDjIXXbKgU)
+| Key | Value    | 
+| :---:   | :---: | 
+| Live Preview | [Vercel Deploy](https://bulls-and-bears.vercel.app/) | 
+| Demo Video  | [Youtube Video](https://youtu.be/NhcRsO8JuUI) | 
 
-## Live Preview
+## Tech Stack
 
-You can see live preview here - [Bulls and Bears](https://bulls-and-bears.vercel.app/)
+| Key | Value    | 
+| :---:   | :---: | 
+| Language | TypeScript   | 
+| Framework  | NextJS  | 
+| CSS Framework | Tailwind CSS   | 
+| State Management | Zustand   | 
+| Graph Rendering  | Chart.js  | 
+| Other Libraries | axios, react-icons, next-themes  | 
+
+## Folder Structure
+
+
+    ├── .next
+    ├── public                 # Stores all the assets (img, svg, etc.)
+    ├── src                    # Contains main application data
+    │   ├── app                # Stores root files along with different paths
+    │   ├── components         # Stores all the components used in the app
+    │   ├── data               # Stores data
+    │   ├── store              # Zustand store for state management
+    │   └── utils              # Utility functions like calling APIs
+    └── ...
 
 ## FlowChart
 
