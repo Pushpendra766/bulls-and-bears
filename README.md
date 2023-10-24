@@ -21,7 +21,6 @@ Bulls and Bears is a user-friendly web application designed for seamless stock a
 
 ## Folder Structure
 
-
     ├── .next
     ├── public                 # Stores all the assets (img, svg, etc.)
     ├── src                    # Contains main application data
@@ -34,9 +33,7 @@ Bulls and Bears is a user-friendly web application designed for seamless stock a
 
 ## FlowChart
 
-![image](https://github.com/Pushpendra766/bulls-and-bears/assets/56391001/b2ba127c-63c5-41bf-a5ef-8aea97bba833)
-
-
+![image](https://github.com/Pushpendra766/bulls-and-bears/assets/56391001/481cc74d-81bc-4fcf-a05d-ff6c4cf36d77)
 
 ## Getting Started 
 
@@ -46,7 +43,6 @@ To get started with this project, clone the repository and install the dependenc
 2. cd bulls-and-bears
 3. npm install
 ```
-
 ## Development
 
 To run the development server:
