@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import StockCard from "./StockCard";
 import axios from "axios";
 import useStockStore from "@/store/stockStore";
+import { topGainerLoserData } from "@/data/demo-stock-data";
 
 const HomePage = () => {
   const {
@@ -14,8 +15,8 @@ const HomePage = () => {
   } = useStockStore.getState();
   const API_ENDPOINT = `https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey=${process.env.NEXT_PUBLIC_API_KEY_D}`;
   const [current, setCurrent] = useState("gainer");
-  const [topGainers, setTopGainers] = useState([]);
-  const [topLosers, setTopLosers] = useState([]);
+  const [topGainers, setTopGainers] = useState<any[]>([]);
+  const [topLosers, setTopLosers] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
@@ -30,16 +31,20 @@ const HomePage = () => {
       try {
         setLoading(true);
         setError(false);
-        console.log("APi endpoint : ", API_ENDPOINT);
-        console.log("APi key : ", process.env.NEXT_PUBLIC_API_KEY_D);
         const res = await axios.get(API_ENDPOINT);
-        console.log(res.data);
-        console.log("Getting data from API");
-        setTopGainers(res.data.top_gainers);
-        setTopLosers(res.data.top_losers);
 
-        setTopGainersZustand(res.data.top_gainers);
-        setTopLosersZustand(res.data.top_losers);
+        if (
+          Object.keys(res.data)[0] === "Note" ||
+          Object.keys(res.data)[0] === "Information"
+        ) {
+          setTopGainers(topGainerLoserData.top_gainers);
+          setTopLosers(topGainerLoserData.top_losers);
+        } else {
+          setTopGainers(res.data.top_gainers);
+          setTopLosers(res.data.top_losers);
+          setTopGainersZustand(res.data.top_gainers);
+          setTopLosersZustand(res.data.top_losers);
+        }
 
         setLoading(false);
       } catch (error) {
@@ -51,12 +56,13 @@ const HomePage = () => {
   }, []);
 
   return (
-    <div className="mx-10 lg:mx-20 xl:mx-40 mt-5">
+    <div className="mx-10 lg:mx-20 xl:mx-40 pt-5">
       <div className="flex gap-6">
         <button
           onClick={() => setCurrent("gainer")}
           className={`pb-2 ${
-            current === "gainer" && "font-bold border-black border-b-2"
+            current === "gainer" &&
+            "font-bold border-black border-b-2 dark:border-slate-500"
           }`}
         >
           Top Gainers
@@ -64,7 +70,8 @@ const HomePage = () => {
         <button
           onClick={() => setCurrent("loser")}
           className={`pb-2 ${
-            current === "loser" && "font-bold border-black border-b-2"
+            current === "loser" &&
+            "font-bold border-black border-b-2 dark:border-slate-500"
           }`}
         >
           Top Losers
@@ -74,10 +81,12 @@ const HomePage = () => {
         {loading
           ? "Loading..."
           : current === "gainer"
-          ? topGainers && topGainers.map((stock, idx) => {
+          ? topGainers &&
+            topGainers.map((stock, idx) => {
               return <StockCard data={stock} key={idx} />;
             })
-          : topLosers && topLosers.map((stock, idx) => {
+          : topLosers &&
+            topLosers.map((stock, idx) => {
               return <StockCard data={stock} key={idx} />;
             })}
       </div>

@@ -14,10 +14,8 @@ type StockCardProps = {
 const StockCard: React.FC<StockCardProps> = ({ data }) => {
   const isGainer = parseFloat(data.change_amount) > 0;
   return (
-    <Link
-      href={`/stock/${data.ticker}`}
-    >
-      <div className="flex gap-8 border rounded-md p-4 cursor-pointer">
+    <Link href={`/stock/${data.ticker}`}>
+      <div className="flex gap-8 border rounded-md p-4 cursor-pointer dark:bg-slate-800 dark:border-slate-600">
         <div
           className={`flex w-18 h-18 justify-center items-center px-7 rounded-full bg-gradient-to-r ${
             isGainer ? "from-[#90EE91]" : "from-[#F07470]"

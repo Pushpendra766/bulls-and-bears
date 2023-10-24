@@ -130,17 +130,17 @@ function StockGraph() {
   };
 
   return (
-    <div className="border-2 rounded-md">
+    <div className="border-2 rounded-md dark:border-slate-600">
       <div className="lg:px-20 cursor-pointer">
         <Line data={data}></Line>
       </div>
       <div className="flex justify-center py-4">
-        <div className="flex gap-2 md:gap-4 border-2 px-2 md:px-6 rounded-full py-2">
+        <div className="flex gap-2 md:gap-4 border-2 px-2 md:px-6 rounded-full py-2 dark:border-slate-600">
           {durationBtns.map((button, idx) => {
             return (
               <button
                 className={`${
-                  idx === activeDurationBtn && "bg-blue-300"
+                  idx === activeDurationBtn && "bg-blue-300 dark:text-black"
                 } px-2 rounded-full text-sm md:text-base`}
                 key={idx}
                 onClick={() => handleDurationChange(idx)}
