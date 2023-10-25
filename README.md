@@ -33,7 +33,7 @@ Bulls and Bears is a user-friendly web application designed for seamless stock a
 
 ## General Flow Diagram
 
-![image](https://github.com/Pushpendra766/bulls-and-bears/assets/56391001/7668db63-58a1-4223-a456-7b4abab7bc8a)
+![image](https://github.com/Pushpendra766/bulls-and-bears/assets/56391001/034f8c67-079f-411b-90ac-2441fd71be40)
 
 ## Data Flow Diagram
 
