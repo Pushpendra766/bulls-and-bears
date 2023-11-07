@@ -1,6 +1,4 @@
 "use client";
-
-import Image from "next/image";
 import { useState } from "react";
 import Link from "next/link";
 import axios, { CancelTokenSource } from "axios";
@@ -74,7 +72,9 @@ const SearchBar = () => {
           searchTerm.length === 0 && "hidden"
         } absolute flex flex-col border-t-0 bg-[#fff] dark:bg-slate-800 dark:border-slate-600 border py-2`}
       >
-        {searchResult.length !== 0 ? (
+        {loading ? (
+          <p className="px-5 py-3">Loading...</p>
+        ) : searchResult.length !== 0 ? (
           searchResult.map((result: any, idx) => {
             return (
               <Link
