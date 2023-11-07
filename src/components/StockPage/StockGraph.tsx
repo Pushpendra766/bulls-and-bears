@@ -1,7 +1,7 @@
 "use client";
 import { Line } from "react-chartjs-2";
-import { useState } from "react";
-import { intradayData, weeklyData, dailyData } from "@/data/demo-graph-data";
+import { useState, useEffect } from "react";
+import fetchGraphData from "@/services/graphDataServices/graphDataFetcher";
 
 import {
   Chart as ChartJS,
@@ -25,91 +25,15 @@ ChartJS.register(
 );
 
 function StockGraph() {
-  const intradayDataArray = Object.entries(intradayData["Time Series (5min)"])
-    .reverse()
-    .map(([key, value]) => ({
-      date: key,
-      open: value["1. open"],
-    }));
-
-  const dailyDataArray = Object.entries(dailyData["Time Series (Daily)"]).map(
-    ([key, value]) => ({
-      date: key,
-      open: value["1. open"],
-    })
-  );
-
-  const weeklyDataArray = Object.entries(weeklyData["Weekly Time Series"]).map(
-    ([key, value]) => ({
-      date: key,
-      open: value["1. open"],
-    })
-  );
-
   const durationBtns = ["1D", "2W", "1M", "3M", "6M", "1Y"];
   const [activeDurationBtn, setActiveDurationBtn] = useState(0);
 
-  const [xAxisData, setXAxisData] = useState(
-    intradayDataArray.map((data) => data.date.split(" ")[1].slice(0, 5))
-  );
-  const [yAxisData, setYAxisData] = useState(
-    intradayDataArray.map((data) => data.open)
-  );
-
-  const [isGainer, setIsGainer] = useState(
-    Number(yAxisData[yAxisData.length - 1]) - Number(yAxisData[0]) > 0
-  );
+  const [xAxisData, setXAxisData] = useState([]);
+  const [yAxisData, setYAxisData] = useState([]);
 
   const handleDurationChange = (idx: any) => {
     setActiveDurationBtn(idx);
-    if (idx === 0) {
-      setXAxisData(
-        intradayDataArray.map((data) => data.date.split(" ")[1].slice(0, 5))
-      );
-      setYAxisData(intradayDataArray.map((data) => data.open));
-    } else if (idx === 4 || idx === 5) {
-      setXAxisData(
-        weeklyDataArray
-          .slice(0, 30 * (idx - 3) + 1)
-          .reverse()
-          .map((data) => data.date)
-      );
-      setYAxisData(
-        weeklyDataArray
-          .slice(0, 30 * (idx - 3) + 1)
-          .reverse()
-          .map((data) => data.open)
-      );
-    } else if (idx === 1 || idx === 2) {
-      setXAxisData(
-        dailyDataArray
-          .slice(0, 15 * idx)
-          .reverse()
-          .map((data) => data.date)
-      );
-      setYAxisData(
-        dailyDataArray
-          .slice(0, 15 * idx)
-          .reverse()
-          .map((data) => data.open)
-      );
-    } else if (idx === 3) {
-      setXAxisData(
-        dailyDataArray
-          .slice(0, 91)
-          .reverse()
-          .map((data) => data.date)
-      );
-      setYAxisData(
-        dailyDataArray
-          .slice(0, 91)
-          .reverse()
-          .map((data) => data.open)
-      );
-    }
-    setIsGainer(
-      Number(yAxisData[yAxisData.length - 1]) - Number(yAxisData[0]) > 0
-    );
+    fetchGraphData(idx, setXAxisData, setYAxisData);
   };
 
   const data = {
@@ -128,6 +52,10 @@ function StockGraph() {
       },
     ],
   };
+
+  useEffect(() => {
+    fetchGraphData(0, setXAxisData, setYAxisData);
+  }, []);
 
   return (
     <div className="border-2 rounded-md dark:border-slate-600">
