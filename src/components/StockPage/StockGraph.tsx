@@ -1,7 +1,7 @@
 "use client";
 import { Line } from "react-chartjs-2";
 import { useState, useEffect } from "react";
-import fetchGraphData from "@/services/graphDataServices/graphDataFetcher";
+import fetchGraphData from "@/services/graphDataFetcher";
 
 import {
   Chart as ChartJS,
