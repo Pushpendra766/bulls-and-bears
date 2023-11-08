@@ -1,12 +1,6 @@
 "use client";
-import { intradayData, weeklyData, dailyData } from "@/data/demo-graph-data";
-
-const intradayDataArray = Object.entries(intradayData["Time Series (5min)"])
-  .reverse()
-  .map(([key, value]) => ({
-    date: key,
-    open: (value as { "1. open": string })["1. open"],
-  }));
+import { weeklyData, dailyData } from "@/data/demo-graph-data";
+import fetchIntradayData from "./graphDataServices/intradayDataFetcher";
 
 const dailyDataArray = Object.entries(dailyData["Time Series (Daily)"]).map(
   ([key, value]) => ({
@@ -22,17 +16,10 @@ const weeklyDataArray = Object.entries(weeklyData["Weekly Time Series"]).map(
   })
 );
 
-function fetchGraphData(
-  idx: number,
-  setXAxisData: any,
-  setYAxisData: any
-) {
+function fetchGraphData(idx: number, setXAxisData: any, setYAxisData: any) {
   switch (idx) {
     case 0:
-      setXAxisData(
-        intradayDataArray.map((data) => data.date.split(" ")[1].slice(0, 5))
-      );
-      setYAxisData(intradayDataArray.map((data) => data.open));
+      fetchIntradayData(setXAxisData, setYAxisData);
       break;
     case 1:
     case 2:
